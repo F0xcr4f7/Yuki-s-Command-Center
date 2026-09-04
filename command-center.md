@@ -21,7 +21,7 @@
 ### 📅 Current Events & Work
 *This is what I have going on right now:*
 
-- **Work:** 9:00 AM - 5:00 PM
+- **Work:** 8:00 AM - 4:00 PM
 - **Events:** Dinner at 6:30 PM
 - **Notes:** Keeping it light today!
 
