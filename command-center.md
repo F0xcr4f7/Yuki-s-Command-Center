@@ -1,4 +1,5 @@
 # 🎛️ Command Center
+## 🌸 My Schedule
 
 ![Schedule](https://shields.io)
 
