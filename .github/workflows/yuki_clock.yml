@@ -20,16 +20,16 @@ jobs:
           export TZ="America/New_York"
           echo "LIVE_TIME=$(date +'%I:%M %p on %m/%d/%y')" >> $GITHUB_ENV
 
-      - name: Overwrite Time Block
+      - name: Safely Overwrite Time Block
         run: |
-          # This forces a direct replacement without breaking text format strings
-          sed -i "s/\` Waiting for bot... \`/\` $LIVE_TIME \`/g" command-center.md
-          sed -i "s/\` [0-9]\{2\}:[0-9]\{2\}.* \`/\` $LIVE_TIME \`/g" command-center.md
+          # This cuts out the old text and replaces it directly
+          sed -i '/### 🕒 Current Time & Day/,$!b; /---/!d; r' command-center.md
+          sed -i "/### 🕒 Current Time & Day/a \` $LIVE_TIME \`\n" command-center.md
 
       - name: Commit and Push Changes
         run: |
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "github-actions[bot]@://github.com"
           git add command-center.md
           git commit -m "🤖 Yuki Bot: Live clock refresh" || exit 0
           git push
