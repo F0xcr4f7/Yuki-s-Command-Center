@@ -3,7 +3,7 @@
 ### 🕒 Current Time & Day
 ` 10:50 AM on 09/04/26 `
 
----
+<hr style="background-color: #FF007F; height: 3px; border: none;">
 
 ### 🌸 My Schedule
 
@@ -15,12 +15,8 @@
 | 20     | 21     | 22     | 23     | 24     | 25     | 26     | 
 | 27     | 28     | 29     | 30     |        |        |        | 
 
----:  | :---:  | :---:   | :---:     | :---:    | :---:  | :---:    |
-|        |        | 1       | 2         | 3        | 4      | 5        |
-| 6      | 7      | 8       | 9         | 10       | 11     | 12       |
-| 13     | 14     | 15      | 16        | 17       | 18     | 19       |
 
----
+<hr style="background-color: #FF007F; height: 3px; border: none;">
 
 ### 📅 Current Events & Work
 *This is what I have going on right now:*
@@ -29,6 +25,6 @@
 - **Events:** Dinner at 6:30 PM
 - **Notes:** Keeping it light today!
 
----
+<hr style="background-color: #FF007F; height: 3px; border: none;">
 
 🔗 [← Back to Main Dashboard](README.md)
