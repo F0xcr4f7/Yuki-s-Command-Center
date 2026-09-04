@@ -1,0 +1,32 @@
+name: Update Yuki Clock
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' # This tells the robot to check the time every 5 minutes
+  workflow_dispatch: # This lets you click a button to update it instantly
+
+jobs:
+  update-clock:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Calculate Live Time
+        run: |
+          # Change America/New_York to your actual timezone if needed!
+          export TZ="America/New_York"
+          echo "LIVE_TIME=$(date +'%I:%M %p on %m/%d/%y')" >> $GITHUB_ENV
+
+      - name: Inject Time into Command Center
+        run: |
+          # This replaces a placeholder tag in your file with the live time
+          sed -i "s/<!-- LIVE_CLOCK -->.*/<!-- LIVE_CLOCK --> \`$LIVE_TIME\`/g" command-center.md
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "Yuki Clock Bot"
+          git config --global user.email "bot@github.com"
+          git add command-center.md
+          git commit -m "🤖 Yuki Bot: Updated live dashboard clock" || exit 0
+          git push
