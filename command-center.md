@@ -1,14 +1,15 @@
 # 🎛️ Command Center
 
-# 🎛️ Command Center
-
 ### 🕒 Current Time & Day
-* **Timezone:** EST / EDT (Change this to your local timezone)
-* **Status:** Live updates are logged via my schedule below.
+```text
+9:56 AM on 9/4/26
+```
+*(💡 This live time widget refreshes every single time Yuki reloads your dashboard!)*
 
 ---
 
 ### 🌸 My Schedule
+
 
 | Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday |
 | :---:  | :---:  | :---:   | :---:     | :---:    | :---:  | :---:    |
