@@ -1,12 +1,8 @@
 # 🎛️ Command Center
 
 ### 🕒 Current Time & Day
-```text
-9:56 AM on 9/4/26
-```
-*(💡 This live time widget refreshes every single time Yuki reloads your dashboard!)*
+<!-- LIVE_CLOCK --> `Waiting for bot...`
 
----
 
 ### 🌸 My Schedule
 
