@@ -1,0 +1,73 @@
+name: Update Yuki Month Calendar
+
+on:
+  schedule:
+    - cron: '0 5 * * *' # Runs automatically every night at midnight Central Time (5 AM UTC)
+  workflow_dispatch: # Lets you trigger it manually anytime
+
+permissions:
+  contents: write
+
+jobs:
+  update-calendar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v5
+
+      - name: Generate and Inject Calendar Grid
+        run: |
+          python3 -c "
+          from datetime import datetime
+          import calendar
+          import zoneinfo
+
+          # 1. Get current Central Time
+          tz = zoneinfo.ZoneInfo('America/Chicago')
+          now = datetime.now(tz)
+
+          # 2. Build the live Markdown Calendar Grid
+          cal = calendar.Calendar(firstweekday=6) # Starts weeks on Sunday
+          month_days = cal.monthdayscalendar(now.year, now.month)
+          
+          cal_md = '\n| Sunday | Monday | Tuesday | Wednesday | Thursday | Friday | Saturday |\n'
+          cal_md += '| :---:  | :---:  | :---:   | :---:     | :---:    | :---:  | :---:    |\n'
+          
+          for week in month_days:
+              row = '| '
+              for day in week:
+                  if day == 0:
+                      row += '       | '
+                  elif day == now.day:
+                      # Highlights today's date with a pink accent flower for Yuki
+                      row += f'🌸 **{day}** | '
+                  else:
+                      row += f'{day}     | '
+              cal_md += row + '\n'
+
+          # 3. Read the file
+          with open('command-center.md', 'r') as f:
+              content = f.read()
+
+          # 4. Target the area between the header and the divider line
+          start_marker = '### 🌸 My Schedule'
+          end_marker = '---'
+          
+          if start_marker in content:
+              parts = content.split(start_marker, 1)
+              sub_parts = parts[1].split(end_marker, 1)
+              
+              # Reassemble the file with the brand-new calendar text injected
+              new_content = parts[0] + start_marker + '\n' + cal_md + '\n' + end_marker + sub_parts[1]
+              
+              with open('command-center.md', 'w') as f:
+                  f.write(new_content)
+          "
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@://github.com"
+          git add command-center.md
+          git commit -m "📅 Yuki Bot: Auto-rolled calendar grid" || exit 0
+          git push
