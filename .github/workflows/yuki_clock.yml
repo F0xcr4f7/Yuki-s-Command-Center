@@ -15,16 +15,31 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@v4
 
-      - name: Calculate Live Time
+      - name: Calculate Live Time and Update File
         run: |
-          export TZ="America/New_York"
-          echo "LIVE_TIME=$(date +'%I:%M %p on %m/%d/%y')" >> $GITHUB_ENV
+          python3 -c "
+          from datetime import datetime
+          import zoneinfo
 
-      - name: Safely Overwrite Time Block
-        run: |
-          # This cuts out the old text and replaces it directly
-          sed -i '/### 🕒 Current Time & Day/,$!b; /---/!d; r' command-center.md
-          sed -i "/### 🕒 Current Time & Day/a \` $LIVE_TIME \`\n" command-center.md
+          # Calculate current time in New York timezone
+          tz = zoneinfo.ZoneInfo('America/New_York')
+          now = datetime.now(tz)
+          live_time = now.strftime('%I:%M %p on %m/%d/%y')
+
+          # Read the file
+          with open('command-center.md', 'r') as f:
+              lines = f.readlines()
+
+          # Find the time section and update the line right underneath it
+          for i, line in enumerate(lines):
+              if '### 🕒 Current Time & Day' in line:
+                  lines[i+1] = f'\` {live_time} \`\n'
+                  break
+
+          # Write changes back to the file
+          with open('command-center.md', 'w') as f:
+              f.writelines(lines)
+          "
 
       - name: Commit and Push Changes
         run: |
