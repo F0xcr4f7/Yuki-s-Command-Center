@@ -1,7 +1,10 @@
 # 🎛️ Command Center
 
+# 🎛️ Command Center
+
 ### 🕒 Current Time & Day
-![Time](https://shields.io)
+* **Timezone:** EST / EDT (Change this to your local timezone)
+* **Status:** Live updates are logged via my schedule below.
 
 ---
 
