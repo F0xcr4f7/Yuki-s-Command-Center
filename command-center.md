@@ -1,8 +1,9 @@
 # 🎛️ Command Center
 
 ### 🕒 Current Time & Day
-<!-- LIVE_CLOCK --> `Waiting for bot...`
+` Waiting for bot... `
 
+---
 
 ### 🌸 My Schedule
 
